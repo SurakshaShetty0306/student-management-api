@@ -65,14 +65,14 @@ student-management-api
 │                       └── StudentManagementApiApplicationTests.java
 └── pom.xml
 ```
-Entity Relationship
+## Entity Relationship
 
 The application contains two entities.
 
-Department
+### Department
 ID
 Name
-Student
+### Student
 ID
 Name
 Email
@@ -80,8 +80,9 @@ Course
 Age
 Department
 
-Relationship:
-```
+### Relationship:
+
+```text
 Department
 |
 | 1
@@ -93,36 +94,45 @@ Student
 A department can have multiple students, while each student belongs to one department.
 
 The relationship is implemented using:
-
+```
 @OneToMany
-
+```
 and
 
+```
 @ManyToOne
-API Endpoints
-Student APIs
-Method	Endpoint	Description
-POST	/students	Create a student
-GET	/students	Get all students
-GET	/students/{id}	Get student by ID
-PUT	/students/{id}	Update a student
-DELETE	/students/{id}	Delete a student
-GET	/students/course/{course}	Find students by course
-GET	/students/search?name={name}	Search students by name
-Department APIs
-Method	Endpoint	Description
-POST	/departments	Create a department
-GET	/departments	Get all departments
-GET	/departments/{id}	Get department by ID
-PUT	/departments/{id}	Update a department
-DELETE	/departments/{id}	Delete a department
-Custom JPA Query
+```
+## API Endpoints
 
+### Student APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/students` | Create a student |
+| GET | `/students` | Get all students |
+| GET | `/students/{id}` | Get student by ID |
+| PUT | `/students/{id}` | Update a student |
+| DELETE | `/students/{id}` | Delete a student |
+| GET | `/students/course/{course}` | Find students by course |
+| GET | `/students/search?name={name}` | Search students by name |
+
+### Department APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/departments` | Create a department |
+| GET | `/departments` | Get all departments |
+| GET | `/departments/{id}` | Get department by ID |
+| PUT | `/departments/{id}` | Update a department |
+| DELETE | `/departments/{id}` | Delete a department |Custom JPA Query
+
+Custom JPA Query
 The StudentRepository contains a custom JPQL query:
 
+```
 @Query("SELECT s FROM Student s WHERE s.course = :course")
 List<Student> findStudentsByCourse(@Param("course") String course);
-
+```
 The project also uses Spring Data derived query methods for searching students by name.
 
 Validation
@@ -136,7 +146,7 @@ The Student entity uses:
 @Email
 
 Example:
-
+```
 @NotNull
 @Size(min = 2, max = 50)
 private String name;
@@ -144,7 +154,7 @@ private String name;
 @NotNull
 @Email
 private String email;
-
+```
 Invalid request data results in a 400 Bad Request response.
 
 Database Configuration
@@ -152,15 +162,15 @@ Database Configuration
 The application uses MySQL.
 
 Create the database:
-
+```
 CREATE DATABASE student_management;
-
+```
 Configure the database connection in:
-
+```
 src/main/resources/application.properties
-
+```
 Example:
-
+```
 spring.datasource.url=jdbc:mysql://localhost:3306/student_management
 spring.datasource.username=root
 spring.datasource.password=YOUR_MYSQL_PASSWORD
@@ -170,7 +180,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
 server.port=8081
-
+```
 Replace YOUR_MYSQL_PASSWORD with your local MySQL password.
 
 Running the Application
@@ -178,33 +188,38 @@ Running the Application
 Make sure MySQL is running and the student_management database exists.
 
 On Windows:
-
+```
 .\mvnw.cmd spring-boot:run
-
+```
 The API runs on:
-
+```
 http://localhost:8081
+```
 Testing
 
 Run all automated tests using:
-
+```
 .\mvnw.cmd test
-
+```
 The project includes:
 
 Spring Boot application context testing
 Student controller testing using MockMvc
 
 Latest test result:
-
+```
 Tests run: 2
 Failures: 0
 Errors: 0
 BUILD SUCCESS
+```
 Example Student Request
 Create Student
+```
 POST /students
 Content-Type: application/json
+```
+```
 {
 "name": "Rahul Kumar",
 "email": "rahul@example.com",
@@ -214,7 +229,9 @@ Content-Type: application/json
 "id": 1
 }
 }
+```
 Example Response
+```
 {
 "name": "Rahul Kumar",
 "email": "rahul@example.com",
@@ -226,7 +243,7 @@ Example Response
 },
 "id": 2
 }
-
+```
 ## Key Features
 
 - RESTful API development with Spring Boot
