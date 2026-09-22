@@ -263,3 +263,32 @@ Example Response
 **Suraksha Shetty**
 
 Java | Spring Boot | REST APIs | JPA | MySQL
+
+### Spring Security 6 with JWT Token Authentication
+
+Implemented Spring Security 6 with stateless JWT-based authentication.
+
+**Features:**
+- User registration and login
+- BCrypt password encryption
+- JWT token generation and validation
+- Custom `UserDetailsService`
+- JWT authentication using `OncePerRequestFilter`
+- Protected Student and Department APIs
+- Custom JSON response for unauthorized requests
+- Postman collection for API testing
+
+**Authentication Flow:**
+1. Register a user using `/api/auth/register`
+2. Login using `/api/auth/login`
+3. Receive a JWT token
+4. Send the token as a Bearer token in the `Authorization` header
+5. Access protected APIs
+
+**Testing:**
+- Valid JWT → `200 OK`
+- Missing JWT → `401 Unauthorized`
+- Invalid JWT → `401 Unauthorized`
+
+**Postman Collection:**
+`Student Management API - JWT Authentication.postman_collection.json`
